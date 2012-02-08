@@ -1,0 +1,1 @@
+Download the recipes from https://github.com/DeployCC/deploy-recipes
