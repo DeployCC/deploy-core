@@ -5,7 +5,7 @@
 	Deploy for Humans
 	_________________
 	
-	This recipe will prepare nginx from source.
+	Is the base recipe for cook you code.
 	
 	:copyright: (c) 2012 by Jair Gaxiola 
 	:license: GPLv3

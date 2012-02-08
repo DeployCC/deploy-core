@@ -8,7 +8,7 @@
 	Build the source.
 	
 	:copyright: (c) 2012 by Jair Gaxiola 
-	:license: GPL 2
+	:license: GPLv3
 """
 
 import requests
