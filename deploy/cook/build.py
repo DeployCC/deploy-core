@@ -18,7 +18,6 @@ from deploy.env import globals
 			
 class Source():	
 
-	
 	def get(self, url, info):	
 
 		filename = "%(name)s-%(version)s" % info
@@ -32,11 +31,18 @@ class Source():
 		
 		globals['source'] = "cd " + filepath + filename + ";"
 
+class PreCompile(object):
+    
+    def __init__(self, precompile):
+        if precompile:
+	        os.system(globals['source'] + precompile)
+
 class Configure():
 	
-	def to_compile(self, options = {}, with_value = {}, without_value = {}, enable = {}, disable = {}):
+	def to_compile(self, flags = {}, options = {}, with_value = {}, without_value = {}, enable = {}, disable = {}):
+	    
 		compile = './configure'
-		print options
+
 		for k, v in options.items():
 			compile += ' --' + k + '=' + v
 		
@@ -53,6 +59,7 @@ class Configure():
 			compile += ' --disable-' + k
 		
 		os.system(globals['source'] + compile)
+		    
 
 class Make(object):
 	
@@ -63,3 +70,9 @@ class MakeInstall(object):
 
 	def __init__(self):
 		os.system(globals['source'] + "make install")
+
+class PostCompile(object):
+    
+    def __init__(self, postcompile):
+        if postcompile:
+	        os.system(globals['source'] + postcompile)
