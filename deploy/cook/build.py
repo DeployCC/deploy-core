@@ -11,25 +11,23 @@
 	:license: GPLv3
 """
 
-import requests
 import os
 
 from deploy.env import globals
+from deploy.commands import Tar, Wget
 			
 class Source():	
 
-	def get(self, url, info):	
-
-		filename = "%(name)s-%(version)s" % info
-		filepath = "%(path)s" % globals
-		tar = filename + '.tar.gz'
-		source = requests.get(url % info)
-		filesource = open(filepath + tar, 'w')
-		filesource.write(source.content)
-		filesource.close()
-		os.system("cd " + filepath + "; tar -zxvf " + tar)
-		
-		globals['source'] = "cd " + filepath + filename + ";"
+	def get(self, url, info):
+	    fullname = "%(name)s-%(version)s" % info
+	    resource = url % info
+	    
+	    wget = Wget()
+	    wget.download(resource, fullname)
+	    tar = Tar()
+	    tar.untar(info)
+	    
+	    globals['source'] = "cd " + globals['store'] + "%(name)s/%(version)s;" % info
 
 class PreCompile(object):
     
@@ -59,7 +57,6 @@ class Configure():
 			compile += ' --disable-' + k
 		
 		os.system(globals['source'] + compile)
-		    
 
 class Make(object):
 	

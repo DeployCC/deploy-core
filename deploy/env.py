@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
-
+import os
 
 global globals
 
 globals = {}
-globals['path'] = '/Users/jyr/src/'
+store = '/usr/local/Store/'
+
+if not os.path.exists(store):
+    os.makedirs(store)
+
+globals['store'] = store
+globals['src'] = store + "src/"
 globals['source'] = ''
-globals['prefix'] = globals['path'] + 'configure'
+globals['prefix'] = store
